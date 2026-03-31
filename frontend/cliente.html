@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Cliente</title>
+</head>
+<body>
+
+<h1>Bienvenido Cliente</h1>
+
+<button onclick="verCuenta()">Ver Cuenta</button>
+<button onclick="verCreditos()">Ver Créditos</button>
+
+<div id="resultado"></div>
+
+<script>
+async function verCuenta() {
+    const res = await fetch('http://localhost:3000/cuenta');
+    const data = await res.json();
+
+    let html = `
+        <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Saldo</th>
+        </tr>
+    `;
+
+    data.forEach(c => {
+        html += `
+            <tr>
+                <td>${c.id_cuenta}</td>
+                <td>${c.saldo}</td>
+            </tr>
+        `;
+    });
+
+    html += "</table>";
+
+    document.getElementById("resultado").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
